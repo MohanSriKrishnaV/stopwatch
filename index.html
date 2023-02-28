@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    h1 {
+        font-style: italic;
+        font-weight: bolder;
+        font-size: 50px;
+        margin-bottom: 50px;
+    }
+
+    #holder {
+        margin-left: 200px;
+        text-align: center;
+        font-weight: bolder;
+        margin-top: 100px;
+
+    }
+
+
+
+    #start {
+        color: green;
+        font-size: 32px;
+        font-weight: bolder;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+
+    #pause {
+        color: red;
+        font-size: 32px;
+        font-weight: bolder;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+
+    #reset {
+        color: darkgoldenrod;
+        font-size: 32px;
+        font-weight: bolder;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    #watch {
+        font-size: 50px;
+        margin-bottom: 50px;
+        border-color: aqua;
+        font-style: normal;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #cast {
+        color: blue;
+        font-size: 32px;
+        font-weight: bolder;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    #casts {
+        margin-top: 50px;
+        font-size: 35px;
+        font-weight: bolder;
+    }
+
+    #buttons {
+        margin-bottom: 5s0px;
+    }
+</style>
+
+<body>
+    <div id="holder">
+        <h1>PRT - PROJECT - STOP - WATCH</h1>
+        <div id="watch">
+            <span id="hrs">00</span>:
+            <span id="min">00</span>:
+            <span id="secs">00</span>:
+            <span id="msecs">000</span>
+        </div>
+        <div id="buttons">
+
+            <button id="start">Start</button>
+            <button id="pause">Pause</button>
+            <button id="reset">Reset</button>
+            <button id="cast">Cast</button>
+        </div>
+        <div id="casts"></div>
+    </div>
+</body>
+
+<script>
+
+    let msecs = 0;
+    let secs = 0;
+    let mins = 0;
+    let hrs = 0;
+    let interval;
+    let caster = 0;
+
+
+    let buttonstart = document.getElementById("start");
+    let buttonpause = document.getElementById("pause");
+    let buttonreset = document.getElementById("reset");
+    let buttoncast = document.getElementById("cast");
+
+    let spanhrs = document.getElementById("hrs");
+    let spanmin = document.getElementById("min");
+    let spansecs = document.getElementById("secs");
+    let spanmsecs = document.getElementById("msecs");
+
+
+    buttoncast.addEventListener("click", () => {
+        caster++;
+        let x = document.getElementById("casts");
+        y = document.createElement("p");
+        y.innerHTML = `CAST ${caster}  :  ${hrs}:${mins}:${secs}:${msecs}`
+        x.appendChild(y);
+    })
+
+
+    buttonstart.addEventListener("click", () => {
+        clearInterval(interval);
+        interval = setInterval(starttime, 1)
+    })
+
+    buttonpause.addEventListener("click", () => {
+        clearInterval(interval);
+    })
+
+
+    buttonreset.addEventListener("click", () => {
+        msecs = "000";
+        secs = "00";
+        mins = "00";
+        hrs = "00";
+        clearInterval(interval);
+        spanmsecs.innerHTML = msecs;
+        spansecs.innerHTML = secs;
+        spanmin.innerHTML = mins;
+        spanhrs.innerHTML = hrs;
+        let x = document.getElementById("casts");
+        x.innerHTML = "";
+        caster = 0;
+
+    })
+
+
+    function starttime() {
+        msecs++;
+        if (msecs <= 9) {
+            spanmsecs.innerHTML = "00" + msecs
+        }
+        if (msecs > 9) {
+            spanmsecs.innerHTML = "0" + msecs
+        }
+
+        if (msecs > 99) {
+            secs++;
+            spansecs.innerHTML = "0" + secs;
+            msecs = 0;
+            spanmsecs.innerHTML = "0" + 0
+        }
+
+        if (secs > 9) {
+            spansecs.innerHTML = secs;
+        }
+
+        if (secs > 59) {
+            mins++;
+            spanmin.innerHTML = "0" + mins;
+            secs = 0;
+            spansecs.innerHTML = "0" + 0
+        }
+        if (min > 9) {
+            spanmin.innerHTML = mins;
+        }
+        if (min <= 59) {
+            hr++;
+            spanhrs.innerHTML = "0" + hrs;
+            min = 0;
+            spanmin.innerHTML = "0" + 0;
+        }
+        if (hrs > 9) {
+            spanhrs.innerHTML = hrs;
+        }
+
+    }
+
+
+
+
+
+
+
+
+</script>
+
+</html>
